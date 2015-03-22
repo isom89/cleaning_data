@@ -50,4 +50,8 @@ names(data) <- valid_column_names #define appropriate column names to data
 
 tidy_data <- select(data, matches("(Subject)+|(activity_name)+|(mean)+|(std)+", ignore.case = FALSE)) ##selecting special columns with mean, std, Subject and activity_name
 
+average_values <- group_by(tidy_data, Subject, activity_name) ##Group by subject and activity to calculate average values
+
+average_values_data <- summarize(average_values, mean(average_values[,3:88])) ## summarizing mean data of variables
+
 write.table(tidy_data, file='tidy_data.txt', col.names=TRUE, row.names=FALSE) ##writing tidy data to txt file to working directory
